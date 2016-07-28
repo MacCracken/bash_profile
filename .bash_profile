@@ -297,7 +297,8 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   Code Shortcut
 
 #   Homebrew Updating Shortcuts
-alias brewme="brew update && brew upgrade --all"
+#   Updates, Upgrades and Cleans up old files
+alias brewme="brew update && brew upgrade --all && brew cleanup"
 
 #   Personal Shortcuts
 #   --------------------------------------
