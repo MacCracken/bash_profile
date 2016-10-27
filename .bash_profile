@@ -297,13 +297,12 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   Code Shortcut
 
 #   Homebrew Updating Shortcuts
-#   Updates, Upgrades and Cleans up old files
-alias brewme="brew update && brew upgrade --all && brew cleanup"
+alias brewme="brew update && brew upgrade && brew cleanup"
 
 #   Personal Shortcuts
 #   --------------------------------------
 alias pgm='pgm-apt'
-alias pgmdir="cd ~/Repos/pgm-apt"
+alias pgm-dir="cd ~/Repos/pgm-apt"
 
 #   Personal Env Vars
 export PGM='local'
@@ -325,4 +324,19 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # '\u' adds the name of the current user to the prompt
 # '\$(__git_ps1)' adds git-related stuff
 # '\W' adds the name of the current directory
-export PS1="________________________________________________________________________________\n| $blue\u |$green\$(__git_ps1)$cyan \W $reset \n| =>"
+
+# create horizontal line that fills the middle of the terminal with dynamic width
+function horizline {
+    TERMWIDTH=${COLUMNS}
+    let promptsize=$(echo -n "_[\u]_[\h]_" | wc -c | tr -d " ")
+    let fillsize=${TERMWIDTH}-${promptsize}+10
+    fill=""
+    while [ "$fillsize" -gt "0" ]
+    do
+        fill="${fill}_"
+        let fillsize=${fillsize}-1
+    done
+    echo ${fill}
+}
+
+export PS1="$PROMPT1`horizline`\n \d \T $blue| \u |$green\$(__git_ps1)$cyan \W \n $PROMPT2> $reset"
