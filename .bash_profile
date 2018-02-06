@@ -298,11 +298,11 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 
 #   Homebrew Updating Shortcuts
 alias brewme="brew update && brew upgrade && brew cleanup"
+alias gemme="gem update --system && gem update && gem cleanup"
+alias updateme="brewme && gemme"
 
 #   Personal Shortcuts
 #   --------------------------------------
-alias pgm='pgm-apt'
-alias pgm-dir="cd ~/Repos/pgm-apt"
 
 #   Personal Env Vars
 export PGM='local'
