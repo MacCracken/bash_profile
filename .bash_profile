@@ -301,9 +301,6 @@ alias brewme="brew update && brew upgrade && brew cleanup"
 alias gemme="gem update --system && gem update && gem cleanup"
 alias updateme="brewme && gemme"
 
-#   Personal Shortcuts
-#   --------------------------------------
-
 #   Personal Env Vars
 export PGM='local'
 
@@ -312,10 +309,13 @@ export PGM='local'
 source ~/git-completion.bash
 
 # colors!
+yellow="\[\033[1;33m\]"
 green="\[\033[0;32m\]"
 blue="\[\033[0;34m\]"
+lightblue="\[\033[1;34m\]"
 purple="\[\033[0;35m\]"
 cyan="\[\033[0;36m\]"
+lightred="\[\033[1;31m\]"
 reset="\[\033[0m\]"
 
 # Change command prompt
@@ -324,6 +324,16 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # '\u' adds the name of the current user to the prompt
 # '\$(__git_ps1)' adds git-related stuff
 # '\W' adds the name of the current directory
+
+# Return the prompt symbol to use, colorized based on the return value of the
+# previous command.
+function set_prompt_symbol () {
+  if test $1 -eq 0 ; then
+      PROMPT_SYMBOL=$cyan">"
+  else
+      PROMPT_SYMBOL="${lightred}>${reset}"
+  fi
+}
 
 # create horizontal line that fills the middle of the terminal with dynamic width
 function horizline {
@@ -336,15 +346,14 @@ function horizline {
         fill="${fill}_"
         let fillsize=${fillsize}-1
     done
-    echo ${fill}
+    echo ${cyan}${fill}${reset}
 }
-
 
 # Determine active Python virtualenv details.
 function set_virtualenv () {
     VIRTENV=""
     if [ "$VIRTUAL_ENV" != "" ]; then
-        VIRTENV="$yellow[`basename \"$VIRTUAL_ENV\"`]$reset"
+        VIRTENV="${yellow}[`basename \"$VIRTUAL_ENV\"`]${reset} "
     fi
     export VIRTENV
 }
@@ -358,7 +367,7 @@ function set_bash_prompt () {
   set_virtualenv
 
   # Set the bash prompt variable.
-  PS1="`horizline`\n \d \T $lightblue| \u |$green\$(__git_ps1)$cyan \W \n $VIRTENV $PROMPT_SYMBOL $reset"
+  PS1="`horizline`\n \n\d \T $lightblue| \u |$green\$(__git_ps1)$cyan \W $reset \n$VIRTENV$PROMPT_SYMBOL $reset"
 }
 
 # Tell bash to execute this function just before displaying its prompt.
