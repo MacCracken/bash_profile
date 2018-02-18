@@ -301,12 +301,8 @@ alias brewme="brew update && brew upgrade && brew cleanup"
 alias gemme="gem update --system && gem update && gem cleanup"
 alias updateme="brewme && gemme"
 
-#   Personal Env Vars
+# Personal Env Vars
 export PGM='local'
-
-# Git Setup
-# Enable tab completion
-source ~/git-completion.bash
 
 # colors!
 yellow="\[\033[1;33m\]"
@@ -318,7 +314,10 @@ cyan="\[\033[0;36m\]"
 lightred="\[\033[1;31m\]"
 reset="\[\033[0m\]"
 
+# Git Setup
+# Enable tab completion
 # Change command prompt
+source ~/git-completion.bash
 source ~/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 # '\u' adds the name of the current user to the prompt
