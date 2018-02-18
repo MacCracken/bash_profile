@@ -339,4 +339,27 @@ function horizline {
     echo ${fill}
 }
 
-export PS1="$PROMPT1`horizline`\n \d \T $blue| \u |$green\$(__git_ps1)$cyan \W \n $PROMPT2> $reset"
+
+# Determine active Python virtualenv details.
+function set_virtualenv () {
+    VIRTENV=""
+    if [ "$VIRTUAL_ENV" != "" ]; then
+        VIRTENV="$yellow[`basename \"$VIRTUAL_ENV\"`]$reset"
+    fi
+    export VIRTENV
+}
+
+function set_bash_prompt () {
+  # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
+  # return value of the last command.
+  set_prompt_symbol $?
+
+  # Set the PYTHON_VIRTUALENV variable.
+  set_virtualenv
+
+  # Set the bash prompt variable.
+  PS1="`horizline`\n \d \T $lightblue| \u |$green\$(__git_ps1)$cyan \W \n $VIRTENV $PROMPT_SYMBOL $reset"
+}
+
+# Tell bash to execute this function just before displaying its prompt.
+PROMPT_COMMAND=set_bash_prompt
