@@ -21,9 +21,9 @@
 
 #   Set Paths
 #   ------------------------------------------------------------
-    export PATH="$PATH:/usr/local/bin/"
-    export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
+    export PATH="/usr/local/git/bin:/sw/bin/:/usr/local:/usr/local/sbin:$PATH"
     export JAVA_HOME=$(/usr/libexec/java_home)
+    export GOPATH="/Users/maccracken/Repos/GO_Projects/"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
@@ -296,7 +296,7 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   --------------------------------------
 #   Code Shortcut
 
-#   Homebrew Updating Shortcuts
+# Homebrew Updating Shortcuts
 alias brewme="brew update && brew upgrade && brew cleanup"
 alias gemme="gem update --system && gem update && gem cleanup"
 alias updateme="brewme && gemme"
@@ -313,6 +313,7 @@ purple="\[\033[0;35m\]"
 cyan="\[\033[0;36m\]"
 lightred="\[\033[1;31m\]"
 reset="\[\033[0m\]"
+
 
 # Git Setup
 # Enable tab completion
@@ -369,5 +370,6 @@ function set_bash_prompt () {
   PS1="`horizline`\n \n\d \T $lightblue| \u |$green\$(__git_ps1)$cyan \W $reset \n$VIRTENV$PROMPT_SYMBOL $reset"
 }
 
+cal
 # Tell bash to execute this function just before displaying its prompt.
 PROMPT_COMMAND=set_bash_prompt
